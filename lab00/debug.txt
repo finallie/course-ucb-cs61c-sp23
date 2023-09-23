@@ -1,0 +1,16 @@
+OSTYPE='darwin22.1.0'
+BASH_VERSION='GNU bash, version 5.2.15(1)-release (aarch64-apple-darwin22.1.0)
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+
+This is free software; you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.'
+SH_VERSION='GNU bash, version 3.2.57(1)-release (arm64-apple-darwin22)
+Copyright (C) 2007 Free Software Foundation, Inc.'
+GIT_VERSION='git version 2.42.0'
+PYTHON3_VERSION='Python 3.11.4'
+PYTHON_VERSION='gen-debug.sh: line 12: python: command not found'
+PY_VERSION='gen-debug.sh: line 13: py: command not found'
+JAVA_VERSION='openjdk version "20.0.1" 2023-04-18
+OpenJDK Runtime Environment Homebrew (build 20.0.1)
+OpenJDK 64-Bit Server VM Homebrew (build 20.0.1, mixed mode, sharing)'
