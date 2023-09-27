@@ -27,7 +27,25 @@ main:
 # The return value should be stored in a0
 factorial:
     # YOUR CODE HERE
-
+    li t0 1
+    li t1 1
+loop:
+    beq a0 t1 finish_loop
+    
+    li t2 0
+    li t3 0
+mult_loop:
+    beq t3 a0 mult_loop_end
+    add t2 t2 t0
+    addi t3 t3 1
+    j mult_loop
+mult_loop_end:
+    mv t0 t2
+    addi a0 a0 -1
+    j loop
     # This is how you return from a function. You'll learn more about this later.
     # This should be the last line in your program.
+finish_loop:
+    mv a0 t0
     jr ra
+    
