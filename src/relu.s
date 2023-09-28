@@ -1,3 +1,4 @@
+.import utils.s
 .globl relu
 
 .text
@@ -14,7 +15,8 @@
 # ==============================================================================
 relu:
     # Prologue
-
+    li t0 1
+    blt a1 t0 l_exit
 
 loop_start:
 
@@ -36,3 +38,6 @@ loop_end:
 
 
     jr ra
+l_exit:
+    li a0 36
+    call exit
