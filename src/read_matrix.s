@@ -25,18 +25,75 @@
 #     this function terminates the program with error code 29
 # ==============================================================================
 read_matrix:
+    addi sp sp -24
+    sw ra 0(sp)
+    sw s0 4(sp)
+    sw s1 8(sp)
+    sw s2 12(sp)
+    sw s3 16(sp)
+    sw s4 20(sp)
 
     # Prologue
+    mv s1 a1 # &rows
+    mv s2 a2 # &columns
+    li a1 0
+    call fopen
+    blt a0 zero fopen_fail
+# read_row_num
+    mv s0 a0 # s0 fd
+    mv a1 s1
+    li a2 4
+    call fread
+    li t0 4
+    bne a0 t0 fread_fail
+# read_column_num
+    mv a0 s0
+    mv a1 s2
+    li a2 4
+    call fread
+    li t0 4
+    bne a0 t0 fread_fail
+# cal_size
+    lw s3 0(s1) # s3=rows*coloums*4
+    lw t0 0(s2)
+    mul s3 t0 s3
+    slli s3 s3 2
+# malloc buffer
+    mv a0 s3
+    call malloc
+    beqz a0 malloc_fail
+    mv s4 a0 # s4=&buffer
+# fill buffer
+    mv a0 s0
+    mv a1 s4
+    mv a2 s3
+    call fread
+    bne a0 s3 fread_fail
+# fclose
+    mv a0 s0
+    call fclose
+    bnez a0 fclose_fail
 
-
-
-
-
-
-
-
-
+    mv a0 s4
     # Epilogue
-
+    lw ra 0(sp)
+    lw s0 4(sp)
+    lw s1 8(sp)
+    lw s2 12(sp)
+    lw s3 16(sp)
+    lw s4 20(sp)
+    addi sp sp 24
 
     jr ra
+fopen_fail:
+    li a0 27
+    j exit
+malloc_fail:
+    li a0 26
+    j exit
+fclose_fail:
+    li a0 28
+    j exit
+fread_fail:
+    li a0 29
+    j exit
