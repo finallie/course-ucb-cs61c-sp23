@@ -590,3 +590,4 @@ cython_debug/
 !/*/tests/reference-output/*.out
 
 .vscode
+.idea

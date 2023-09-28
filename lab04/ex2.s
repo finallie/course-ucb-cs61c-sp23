@@ -32,6 +32,8 @@ ex2:
     # a1 contains the power to raise to
     # the return value should be the result of a0^a1
     #     where ^ is the exponent operator, not XOR
+    addi sp sp -8
+    sw ra 4(sp)
     sw s0 0(sp)
 
     # return 1 if a0 == 0
@@ -53,5 +55,6 @@ ex2_zero_case:
 
 ex2_end:
     lw s0 0(sp)
-
+    lw ra 4(sp)
+    addi sp sp 8
     ret
