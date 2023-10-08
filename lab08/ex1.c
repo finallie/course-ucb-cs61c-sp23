@@ -1,6 +1,7 @@
 #include "ex1.h"
 
-double dotp_naive(double* x, double* y, int arr_size) {
+double dotp_naive(double *x, double *y, int arr_size)
+{
     double global_sum = 0.0;
     for (int i = 0; i < arr_size; i++)
         global_sum += x[i] * y[i];
@@ -8,25 +9,53 @@ double dotp_naive(double* x, double* y, int arr_size) {
 }
 
 // Critical Keyword
-double dotp_critical(double* x, double* y, int arr_size) {
+double dotp_critical(double *x, double *y, int arr_size)
+{
     double global_sum = 0.0;
-    // TODO: Implement this function
-    // Use the critical keyword here!
+// TODO: Implement this function
+// Use the critical keyword here!
+#pragma omp parallel for
+    for (int i = 0; i < arr_size; i++)
+    {
+#pragma opm critical
+        global_sum += x[i] * y[i];
+    }
+
     return global_sum;
 }
 
 // Reduction Keyword
-double dotp_reduction(double* x, double* y, int arr_size) {
+double dotp_reduction(double *x, double *y, int arr_size)
+{
     double global_sum = 0.0;
-    // TODO: Implement this function
-    // Use the reduction keyword here!
+// TODO: Implement this function
+// Use the reduction keyword here!
+#pragma omp parallel for reduction(+ : global_sum)
+    for (int i = 0; i < arr_size; i++)
+    {
+        global_sum += x[i] * y[i];
+    }
+
     return global_sum;
 }
 
 // Manual Reduction
-double dotp_manual_reduction(double* x, double* y, int arr_size) {
+double dotp_manual_reduction(double *x, double *y, int arr_size)
+{
     double global_sum = 0.0;
-    // TODO: Implement this function
-    // Do NOT use the `reduction` directive here!
+// TODO: Implement this function
+// Do NOT use the `reduction` directive here!
+#pragma omp parallel
+    {
+        double sum = 0;
+#pragma omp for
+        for (int i = 0; i < arr_size; i++)
+        {
+            sum += x[i] * y[i];
+        }
+#pragma omp critical
+        global_sum += sum;
+    }
+
     return global_sum;
 }

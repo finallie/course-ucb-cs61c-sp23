@@ -1,4 +1,4 @@
-CC=gcc
+CC=/opt/homebrew/opt/llvm/bin/clang
 CFLAGS_OMP=-std=gnu99 -fopenmp -c -g
 LDFLAGS_OMP=-fopenmp
 
