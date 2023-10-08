@@ -70,30 +70,7 @@ long long int sum_simd(int vals[NUM_ELEMS])
         __m128i sum_vec = _mm_setzero_si128(), t1, t2;
 
         /* YOUR CODE GOES HERE */
-        for (unsigned int i = 0; i < NUM_ELEMS / 16 * 16; i += 16)
-        {
-            t1 = _mm_loadu_si128((__m128i *)(vals + i));
-            t2 = _mm_cmpgt_epi32(t1, _127);
-            t1 = _mm_and_si128(t1, t2);
-            sum_vec = _mm_add_epi32(sum_vec, t1);
-
-            t1 = _mm_loadu_si128((__m128i *)(vals + i));
-            t2 = _mm_cmpgt_epi32(t1, _127);
-            t1 = _mm_and_si128(t1, t2);
-            sum_vec = _mm_add_epi32(sum_vec, t1);
-
-            t1 = _mm_loadu_si128((__m128i *)(vals + i));
-            t2 = _mm_cmpgt_epi32(t1, _127);
-            t1 = _mm_and_si128(t1, t2);
-            sum_vec = _mm_add_epi32(sum_vec, t1);
-
-            t1 = _mm_loadu_si128((__m128i *)(vals + i));
-            t2 = _mm_cmpgt_epi32(t1, _127);
-            t1 = _mm_and_si128(t1, t2);
-            sum_vec = _mm_add_epi32(sum_vec, t1);
-        }
-
-        for (unsigned int i = NUM_ELEMS / 16 * 16; i < NUM_ELEMS / 4 * 4; i++)
+        for (unsigned int i = 0; i < NUM_ELEMS / 4 * 4; i += 4)
         {
             t1 = _mm_loadu_si128((__m128i *)(vals + i));
             t2 = _mm_cmpgt_epi32(t1, _127);
@@ -181,9 +158,10 @@ long long int sum_simd_unrolled(int vals[NUM_ELEMS])
         int tmp_arr[4];
         _mm_storeu_si128((__m128i *)tmp_arr, sum_vec);
         result += tmp_arr[0] + tmp_arr[1] + tmp_arr[2] + tmp_arr[3];
-
-        /* DO NOT MODIFY ANYTHING BELOW THIS LINE (in this function) */
-        clock_t end = clock();
-        printf("Time taken: %Lf s\n", (long double)(end - start) / CLOCKS_PER_SEC);
-        return result;
     }
+
+    /* DO NOT MODIFY ANYTHING BELOW THIS LINE (in this function) */
+    clock_t end = clock();
+    printf("Time taken: %Lf s\n", (long double)(end - start) / CLOCKS_PER_SEC);
+    return result;
+}
