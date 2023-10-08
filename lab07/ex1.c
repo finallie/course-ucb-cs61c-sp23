@@ -70,30 +70,7 @@ long long int sum_simd(int vals[NUM_ELEMS])
         __m128i sum_vec = _mm_setzero_si128(), t1, t2;
 
         /* YOUR CODE GOES HERE */
-        for (unsigned int i = 0; i < NUM_ELEMS / 16 * 16; i += 16)
-        {
-            t1 = _mm_loadu_si128((__m128i *)(vals + i));
-            t2 = _mm_cmpgt_epi32(t1, _127);
-            t1 = _mm_and_si128(t1, t2);
-            sum_vec = _mm_add_epi32(sum_vec, t1);
-
-            t1 = _mm_loadu_si128((__m128i *)(vals + i));
-            t2 = _mm_cmpgt_epi32(t1, _127);
-            t1 = _mm_and_si128(t1, t2);
-            sum_vec = _mm_add_epi32(sum_vec, t1);
-
-            t1 = _mm_loadu_si128((__m128i *)(vals + i));
-            t2 = _mm_cmpgt_epi32(t1, _127);
-            t1 = _mm_and_si128(t1, t2);
-            sum_vec = _mm_add_epi32(sum_vec, t1);
-
-            t1 = _mm_loadu_si128((__m128i *)(vals + i));
-            t2 = _mm_cmpgt_epi32(t1, _127);
-            t1 = _mm_and_si128(t1, t2);
-            sum_vec = _mm_add_epi32(sum_vec, t1);
-        }
-
-        for (unsigned int i = NUM_ELEMS / 16 * 16; i < NUM_ELEMS / 4 * 4; i++)
+        for (unsigned int i = 0; i < NUM_ELEMS / 4 * 4; i += 4)
         {
             t1 = _mm_loadu_si128((__m128i *)(vals + i));
             t2 = _mm_cmpgt_epi32(t1, _127);
