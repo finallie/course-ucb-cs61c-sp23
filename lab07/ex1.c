@@ -65,14 +65,14 @@ long long int sum_simd(int vals[NUM_ELEMS])
     long long int result = 0;           // This is where you should put your final result!
     /* DO NOT MODIFY ANYTHING ABOVE THIS LINE (in this function) */
 
-    __m128i sum_vec = _mm_setzero_si128(), t1, t2;
-
     for (unsigned int w = 0; w < OUTER_ITERATIONS; w++)
     {
+        __m128i sum_vec = _mm_setzero_si128(), t1, t2;
+
         /* YOUR CODE GOES HERE */
         for (unsigned int i = 0; i < NUM_ELEMS / 4 * 4; i += 4)
         {
-            t1 = _mm_loadu_si128((__m128i *)vals + i);
+            t1 = _mm_loadu_si128((__m128i *)(vals + i));
             t2 = _mm_cmpgt_epi32(t1, _127);
             t1 = _mm_and_si128(t1, t2);
             sum_vec = _mm_add_epi32(sum_vec, t1);
@@ -88,10 +88,10 @@ long long int sum_simd(int vals[NUM_ELEMS])
                 result += vals[i];
             }
         }
+
         int tmp_arr[4];
         _mm_storeu_si128((__m128i *)tmp_arr, sum_vec);
         result += tmp_arr[0] + tmp_arr[1] + tmp_arr[2] + tmp_arr[3];
-
         /* Hint: you'll need a tail case. */
     }
 
